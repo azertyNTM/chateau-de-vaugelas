@@ -1,0 +1,252 @@
+/* Château de Vaugelas — site sur mesure.
+   Couleurs tirées du lieu : le bleu-vert du paon, le bronze de l'œil de ses plumes, la pierre du parc. */
+
+@font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url(fonts/instrument-sans-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url(fonts/instrument-sans-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url(fonts/instrument-sans-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --nuit: #12282d;     /* bleu de nuit du paon : texte et bandeau sombre */
+  --paon: #1d5f63;     /* bleu-vert du cou */
+  --bronze: #a07d3b;   /* l'œil des plumes : filets et soulignés */
+  --pierre: #eceee9;   /* pierre et brume du parc */
+  --blanc: #fbfbf9;
+  --gris: #5a6a6c;
+
+  --titre: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --texte: "Instrument Sans", system-ui, sans-serif;
+  --marge: clamp(1.25rem, 5vw, 5rem);
+  --large: 78rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--blanc);
+  color: var(--nuit);
+  font: 400 1.0625rem/1.65 var(--texte);
+  font-feature-settings: "kern", "liga";
+}
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--titre); font-weight: 400; line-height: 1.05; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); text-wrap: balance; }
+h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+p { margin: 0 0 1em; max-width: 36em; }
+
+/* ---------- Bandeau d'accueil ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-content: end;
+  color: var(--blanc);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 40%;
+  z-index: -2;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgb(18 40 45 / .45) 0%, rgb(18 40 45 / 0) 22%, rgb(18 40 45 / 0) 45%, rgb(18 40 45 / .55) 65%, rgb(18 40 45 / .85) 100%);
+}
+.haut {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-content: flex-end;
+  padding: 1.4rem var(--marge);
+  font-size: .95rem; font-weight: 500;
+}
+.haut a { text-decoration: none; padding: .3rem 0; border-bottom: 1px solid transparent; }
+.haut a:hover { border-color: currentColor; }
+
+.hero-texte { padding: 0 var(--marge) clamp(2.5rem, 7vh, 5rem); }
+.hero h1 {
+  font-size: clamp(3.6rem, 13.5vw, 13rem);
+  line-height: .88;
+  letter-spacing: -0.035em;
+  margin-left: -0.04em;
+  animation: lever 1.4s cubic-bezier(.2, .7, .2, 1) both;
+}
+.hero-ligne {
+  font-family: var(--titre); font-style: italic;
+  font-size: clamp(1.15rem, 2.1vw, 1.6rem); line-height: 1.35;
+  margin: 1.4rem 0 1.8rem; max-width: none;
+}
+@keyframes lever { from { opacity: 0; transform: translateY(.12em); } to { opacity: 1; transform: none; } }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 0; }
+.bouton {
+  display: inline-block; text-decoration: none;
+  font-weight: 600; font-size: 1rem;
+  padding: .95rem 1.6rem; border-radius: 999px;
+  border: 1px solid currentColor;
+  transition: background-color .2s, color .2s;
+}
+.bouton-plein { background: var(--blanc); color: var(--nuit); border-color: var(--blanc); }
+.bouton-plein:hover { background: var(--pierre); }
+.bouton-clair:hover { background: rgb(255 255 255 / .12); }
+
+/* ---------- La maison ---------- */
+.maison {
+  max-width: var(--large); margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) var(--marge);
+  display: grid; gap: clamp(2.5rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+  align-items: start;
+}
+.maison h2 { margin-bottom: 1.6rem; }
+.chapeau { font-family: var(--titre); font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.35; color: var(--paon); }
+.hote { display: grid; grid-template-columns: 7rem 1fr; gap: 1.2rem; align-items: center; margin-top: 2.5rem; }
+.hote img { width: 7rem; height: 7rem; object-fit: cover; object-position: 50% 30%; border-radius: 50%; }
+.hote figcaption { color: var(--gris); font-size: .95rem; }
+
+.pratique { margin: 0; border-top: 1px solid var(--bronze); }
+.pratique div { padding: 1rem 0; border-bottom: 1px solid rgb(18 40 45 / .14); }
+.pratique dt { font-family: var(--titre); font-size: 1.25rem; }
+.pratique dd { margin: .1rem 0 0; color: var(--gris); }
+
+.interieurs {
+  display: grid; gap: .6rem;
+  grid-template-columns: 1.35fr .75fr 1.35fr;
+  padding: 0 .6rem;
+}
+.interieurs img { width: 100%; height: clamp(16rem, 38vw, 34rem); object-fit: cover; }
+
+/* ---------- Chambres ---------- */
+.chambres { max-width: var(--large); margin: 0 auto; padding: clamp(4rem, 10vw, 8rem) var(--marge); }
+.chambres > h2 { max-width: 12em; }
+.intro { color: var(--gris); margin: 1.2rem 0 clamp(2.5rem, 6vw, 4.5rem); }
+.chambre {
+  display: grid; gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid rgb(18 40 45 / .14);
+}
+.chambre:nth-of-type(even) > img { order: 2; }
+.chambre > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.chambre h3 { margin-bottom: .9rem; }
+.couchage { font-size: .95rem; font-weight: 500; color: var(--paon); margin: 0; padding-top: .7rem; border-top: 1px solid var(--bronze); display: inline-block; }
+
+.chambre-chalet { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.chambre-chalet > img:nth-of-type(1) { grid-column: 1; }
+.chambre-chalet > img:nth-of-type(2) { grid-column: 2; order: 0; }
+.chambre-chalet > div { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: baseline; }
+.chambre-chalet > div p { margin: 0 0 1em; }
+.chambre-chalet .couchage { grid-column: 2; justify-self: start; }
+
+/* ---------- Le parc : le moment fort, en bleu de nuit ---------- */
+.parc { background: var(--nuit); color: var(--blanc); padding: clamp(4rem, 10vw, 8rem) var(--marge); }
+.parc-tete { max-width: var(--large); margin: 0 auto clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 4rem; align-items: end; }
+.parc-tete h2 { font-size: clamp(2.6rem, 7vw, 6rem); }
+.parc-tete p { color: rgb(251 251 249 / .78); margin: 0; }
+.parc-grille {
+  max-width: 90rem; margin: 0 auto;
+  display: grid; gap: .6rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(4, clamp(9rem, 15vw, 15rem));
+  grid-template-areas:
+    "paon paon roue roue roue statue"
+    "paon paon roue roue roue statue"
+    "paon paon piscine piscine ourso aube"
+    "paon paon piscine piscine ourso aube";
+}
+.parc-grille figure { position: relative; overflow: hidden; }
+.parc-grille img { width: 100%; height: 100%; object-fit: cover; }
+.parc-grille figcaption {
+  position: absolute; left: 0; bottom: 0; right: 0;
+  padding: 2.5rem 1rem .8rem;
+  background: linear-gradient(transparent, rgb(18 40 45 / .7));
+  font-family: var(--titre); font-style: italic; font-size: 1.05rem;
+}
+.g-paon { grid-area: paon; } .g-roue { grid-area: roue; } .g-statue { grid-area: statue; }
+.g-piscine { grid-area: piscine; } .g-ourso { grid-area: ourso; } .g-aube { grid-area: aube; }
+.g-paon img { object-position: 50% 30%; }
+
+/* ---------- Avis ---------- */
+.avis {
+  max-width: var(--large); margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) var(--marge);
+  display: grid; grid-template-columns: minmax(14rem, .8fr) minmax(0, 2fr); gap: clamp(2rem, 6vw, 6rem);
+}
+.note-chiffre { font-family: var(--titre); font-size: clamp(6rem, 14vw, 11rem); line-height: .8; color: var(--paon); margin: 0 0 1rem; letter-spacing: -0.04em; }
+.note h2 { font-family: var(--texte); font-size: 1rem; font-weight: 500; line-height: 1.5; color: var(--gris); max-width: 14em; }
+.avis-liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 3rem; }
+blockquote { margin: 0; padding-top: 1.2rem; border-top: 1px solid var(--bronze); }
+blockquote p { font-family: var(--titre); font-size: 1.3rem; line-height: 1.4; margin-bottom: .8rem; }
+blockquote footer { color: var(--gris); font-size: .95rem; }
+
+/* ---------- Autour ---------- */
+.autour {
+  background: var(--pierre);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch;
+}
+.autour > img { width: 100%; height: 100%; min-height: 22rem; object-fit: cover; }
+.autour > div { padding: clamp(3rem, 7vw, 6rem) var(--marge); }
+.autour h2 { margin-bottom: 2rem; }
+table { border-collapse: collapse; width: 100%; max-width: 34rem; }
+th, td { text-align: left; font-weight: 400; padding: .75rem 0; border-bottom: 1px solid rgb(18 40 45 / .14); vertical-align: baseline; }
+td { text-align: right; white-space: nowrap; padding-left: 1.5rem; font-family: var(--titre); font-size: 1.15rem; color: var(--paon); }
+
+/* ---------- Réserver ---------- */
+.venir { text-align: center; padding: clamp(4.5rem, 11vw, 9rem) var(--marge); }
+.venir p { margin-left: auto; margin-right: auto; }
+.venir > p:first-of-type { color: var(--gris); margin-top: 1.2rem; }
+.telephone {
+  display: inline-block; text-decoration: none;
+  font-family: var(--titre); font-size: clamp(2.6rem, 9vw, 6.5rem); line-height: 1;
+  letter-spacing: -0.02em; color: var(--paon);
+  margin: 1.5rem 0 2rem;
+}
+.telephone:hover { color: var(--nuit); }
+.venir .hero-actions { justify-content: center; }
+.venir .bouton-plein { background: var(--nuit); color: var(--blanc); border-color: var(--nuit); }
+.venir .bouton-plein:hover { background: var(--paon); border-color: var(--paon); }
+.venir .bouton-clair { color: var(--nuit); }
+.venir .bouton-clair:hover { background: var(--pierre); }
+address { font-style: normal; margin: 3rem 0 .5rem; line-height: 1.5; }
+.lien { color: var(--paon); text-decoration-color: var(--bronze); text-underline-offset: .25em; }
+
+.pied {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem;
+  padding: 1.5rem var(--marge); background: var(--nuit); color: rgb(251 251 249 / .7); font-size: .9rem;
+}
+.pied p { margin: 0; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 52rem) {
+  .haut { justify-content: flex-start; flex-wrap: wrap; gap: .4rem 1.1rem; font-size: .9rem; }
+  .hero h1 { font-size: clamp(3.4rem, 17vw, 6rem); }
+  .hero-ligne br { display: none; }
+  .maison, .parc-tete, .avis, .autour { grid-template-columns: 1fr; }
+  .interieurs { grid-template-columns: 1fr 1fr; }
+  .interieurs .i-salon { grid-column: 1 / -1; }
+  .interieurs img { height: 15rem; }
+  .chambre, .chambre-chalet, .chambre-chalet > div { grid-template-columns: 1fr; }
+  .chambre:nth-of-type(even) > img { order: 0; }
+  .chambre-chalet > img:nth-of-type(2) { display: none; }
+  .chambre-chalet .couchage { grid-column: auto; }
+  .parc-grille {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 22rem 13rem 13rem 13rem;
+    grid-template-areas: "paon statue" "roue roue" "piscine piscine" "ourso aube";
+  }
+  .avis-liste { grid-template-columns: 1fr; }
+  .autour > img { min-height: 15rem; max-height: 20rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero h1 { animation: none; }
+}
